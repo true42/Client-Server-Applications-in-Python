@@ -1,6 +1,6 @@
-'''
+"""
 lesson 2
-'''
+"""
 import os
 from glob import glob
 from chardet.universaldetector import UniversalDetector
@@ -32,11 +32,11 @@ os.chdir('.')
 names = glob('*.txt')
 
 
-def detector_coding(file:str):
-    '''
+def detector_coding(file: str):
+    """
     :param file: filename > 'file.txt'
     :return: coding > 'utf-8'
-    '''
+    """
     detector = UniversalDetector()
     detector.reset()
     for line in open(file, 'rb'):
@@ -47,11 +47,11 @@ def detector_coding(file:str):
     return detector.result['encoding']
 
 
-def get_data(list_files:list):
-    '''
+def get_data(list_files: list):
+    """
     :param list_files: list with filenames
     :return: list
-    '''
+    """
     main_data = [['Изготовитель системы', 'Название ОС', 'Код продукта', 'Тип системы']]
     os_prod_list, os_name_list, os_code_list, os_type_list = [], [], [], []
     for name in list_files:
@@ -69,17 +69,17 @@ def get_data(list_files:list):
                 if re.fullmatch(r'^Тип системы.+', line):
                     os_type_list.append(re.search(r'x\d\d.+', line)[0])
 
-    for prod, name, code, type in zip(os_prod_list, os_name_list, os_code_list, os_type_list):
-        main_data.append([prod, name, code, type])
+    for prod, name, code, type_ in zip(os_prod_list, os_name_list, os_code_list, os_type_list):
+        main_data.append([prod, name, code, type_])
 
     return main_data
 
 
-def write_to_csv(file:str):
-    '''
+def write_to_csv(file: str):
+    """
     :param file: filename > 'file.csv'
-    '''
-    with open(file, 'w',encoding='utf-8') as f:
+    """
+    with open(file, 'w', encoding='utf-8') as f:
         f_writer = csv.writer(f)
         for row in get_data(names):
             f_writer.writerow(row)
@@ -96,15 +96,16 @@ def write_to_csv(file:str):
 Проверить работу программы через вызов функции write_order_to_json() с передачей в нее значений каждого параметра.
 '''
 
-def write_order_to_json(item:str, quantity:int, price:float, buyer:str, date:datetime):
-    '''
+
+def write_order_to_json(item: str, quantity: int, price: float, buyer: str, date: datetime):
+    """
     write dict to json
     :param item: str
     :param quantity: int
     :param price: float
     :param buyer: str
     :param date: datetime
-    '''
+    """
     dict_to_json = {'item': item, 'quantity': quantity, 'price': price, 'buyer': buyer, 'date': date}
     with open('orders.json', 'w', encoding='utf-8') as f:
         json.dump(dict_to_json, f, indent=4, ensure_ascii=False)
@@ -124,17 +125,17 @@ def write_order_to_json(item:str, quantity:int, price:float, buyer:str, date:dat
 Реализовать считывание данных из созданного файла и проверить, совпадают ли они с исходными.
 '''
 
-def write_orders_to_yaml(data:dict):
-    '''
+
+def write_orders_to_yaml(data: dict):
+    """
     write data to yaml-file
     :param data: dict
-    '''
+    """
     with open('file.yaml', 'w') as f:
         yaml.dump(data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
-
 
 
 if __name__ == '__main__':
     write_to_csv('test.csv')
     write_order_to_json('Товар', 54, 5000.00, 'Иванов И.И.', '08/02/2022')
-    write_orders_to_yaml({'first_key': [1,2,3],'second_key': 5, 'third_key': {'один':'1 🐈', 'два': '2 🐉'}})
+    write_orders_to_yaml({'first_key': [1, 2, 3], 'second_key': 5, 'third_key': {'один': '1 🐈', 'два': '2 🐉'}})
