@@ -49,7 +49,6 @@ def detector_coding(file:str):
 
 def get_data(list_files:list):
     '''
-
     :param list_files: list with filenames
     :return: list
     '''
@@ -125,11 +124,17 @@ def write_order_to_json(item:str, quantity:int, price:float, buyer:str, date:dat
 Реализовать считывание данных из созданного файла и проверить, совпадают ли они с исходными.
 '''
 
-
+def write_orders_to_yaml(data:dict):
+    '''
+    write data to yaml-file
+    :param data: dict
+    '''
+    with open('file.yaml', 'w') as f:
+        yaml.dump(data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
 
 
 
 if __name__ == '__main__':
     write_to_csv('test.csv')
     write_order_to_json('Товар', 54, 5000.00, 'Иванов И.И.', '08/02/2022')
-
+    write_orders_to_yaml({'first_key': [1,2,3],'second_key': 5, 'third_key': {'один':'1 🐈', 'два': '2 🐉'}})
