@@ -1,6 +1,8 @@
-
+import os.path
+import sys
 import json
-from lesson_3.common.variables import MAX_PACKAGE_LENGTH, ENCODING
+sys.path.append(os.path.join(os.getcwd(), '..'))
+from common.variables import MAX_PACKAGE_LENGTH, ENCODING
 
 
 def send_message(sock, message):
