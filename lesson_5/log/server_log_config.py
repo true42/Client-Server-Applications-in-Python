@@ -14,7 +14,7 @@ STREAM_HAND = logging.StreamHandler(sys.stderr)
 STREAM_HAND.setFormatter(SERVER_FORMATTER)
 STREAM_HAND.setLevel(logging.ERROR)
 
-LOG_FILE_HAND = logging.handlers.RotatingFileHandler(PATH, encoding='utf-8', maxBytes=1048576, backupCount=1)
+LOG_FILE_HAND = logging.handlers.TimedRotatingFileHandler(PATH,encoding='utf-8', interval=1, when='D')
 LOG_FILE_HAND.setFormatter(SERVER_FORMATTER)
 
 LOGGER = logging.getLogger('server')
