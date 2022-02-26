@@ -6,10 +6,12 @@ import logging
 import log.server_log_config
 from common.variables import DEFAULT_PORT, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR, MAX_CONNECTIONS
 from common.utils import send_message, get_message
+from decor import log
 
 SERVER_LOGGER = logging.getLogger('server')
 
 
+@log
 def process_client_message(message):
     SERVER_LOGGER.debug(f'Разбор сообщения от клиента: {message}')
     if ACTION in message and message[ACTION] == PRESENCE and TIME in message \
@@ -21,6 +23,7 @@ def process_client_message(message):
     }
 
 
+@log
 def create_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', default=DEFAULT_PORT, type=int, nargs='?')

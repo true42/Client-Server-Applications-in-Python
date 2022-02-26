@@ -7,10 +7,11 @@ import log.client_log_config
 from socket import socket, AF_INET, SOCK_STREAM
 from common.variables import DEFAULT_PORT, DEFAULT_IP_ADDRESS, ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, RESPONSE, ERROR
 from common.utils import send_message, get_message
+from decor import log
 
 CLIENT_LOGGER = logging.getLogger('client')
 
-
+@log
 def create_presence(account_name='Guest'):
     out = {
         ACTION: PRESENCE,
@@ -22,6 +23,7 @@ def create_presence(account_name='Guest'):
     return out
 
 
+@log
 def process_ans(message):
     if RESPONSE in message:
         if message[RESPONSE] == 200:
