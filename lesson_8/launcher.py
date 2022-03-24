@@ -3,7 +3,7 @@
 import subprocess
 
 PROCESS = []
-
+test_names = ['user1', 'user2', 'user3']
 while True:
     ACTION = input('Выберите действие: q - выход, '
                    's - запустить сервер и клиенты, x - закрыть все окна: ')
@@ -13,11 +13,8 @@ while True:
     elif ACTION == 's':
         PROCESS.append(subprocess.Popen('python server.py',
                                         creationflags=subprocess.CREATE_NEW_CONSOLE))
-        for i in range(1):
-            PROCESS.append(subprocess.Popen('python client_send.py -m send',
-                                            creationflags=subprocess.CREATE_NEW_CONSOLE))
-        for i in range(5):
-            PROCESS.append(subprocess.Popen('python client.py -m listen',
+        for i in test_names:
+            PROCESS.append(subprocess.Popen(f'python client.py -n {i}',
                                             creationflags=subprocess.CREATE_NEW_CONSOLE))
     elif ACTION == 'x':
         while PROCESS:
